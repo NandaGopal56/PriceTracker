@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div id="heroCarousel" class="container carousel carousel-fade" data-ride="carousel">
+    <div class="carousel-item active">
+      <div class="carousel-container">
+        <h2 class="border-bottom mb-4" style="color:coral;"> My history</h2>
+        <img src="{{ url_for('static', filename='img/profile-pic.jpg') }}" style="display: block;
+                                                                                  margin-left: auto;
+                                                                                  margin-right: auto;
+                                                                                  width: 10%;
+                                                                                  border-radius: 50%;" alt="Avata">
+
+            <h3 style="color: lavender;">{{ current_user.username }}</h3>           
+
+            
+      </div>
+    </div>
+</div>
+
+    {% endblock content %}
+
+
+
+{% block extra %}
+{% if posts|length >= 1 %}
+<div class="container">
+      
+  <div class="table-responsive">          
+    <table class="table">
+      <thead>
+        <tr>
+
+          <th>Link</th>
+          <th>Current Price</th>
+          <th>User Price</th>
+          <th>Date</th>
+          <th>Delete</th>
+
+        </tr>
+      </thead>
+      
+      
+            {% for post in posts %}
+            <tbody>
+              <tr>
+
+                <td><a href="{{post.link}}" target="_blank">{{post.link[:35]}}</a></td>
+                <td>{{post.current_price}}</td>
+                <td>{{post.target_price}}</td>
+                <td>{{post.date_posted.strftime('%Y-%m-%d')}}</td>
+                <td><form action="" method="POST" ><button class="btn btn-danger" type="submit" name="delete" value={{post.info_id}}><span class="glyphicon glyphicon-trash"></span> Delete</button> </form>
+                </td>
+
+              </tr>
+            </tbody>
+            {% endfor %}
+      {% endif %}
+    </table>
+    </div>
+      {% if posts|length ==0 %}
+      <h2 style="text-align: center;">You have no history currently  </h2>
+      <h2 style="text-align: center;">  Please use the features to get instant updates </h2>
+      {% endif %}
+</div>
+{% endblock extra %}

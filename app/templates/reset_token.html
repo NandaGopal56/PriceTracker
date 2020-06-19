@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+<div id="heroCarousel" class="container carousel carousel-fade" data-ride="carousel">
+    <div class="carousel-item active">
+    <div class="carousel-container" style="color:white;">
+        
+        <div class="content-section">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4"> Reset password </legend>
+                                   
+        
+                    <div class="form-group" style="position: relative;text-align: end;padding-left: 10px">
+                        {{form.password.label(class="form-control-label")}}
+                        {% if form.password.errors %}
+                        {{form.password(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                            {{form.password(class="form-control-label")}}
+                        {% endif %}                    
+                    </div>
+                    
+                    <div class="form-group" style="position: relative;text-align: end;padding-left: 10px">
+                        {{form.confirm_password.label(class="form-control-label")}}
+                        {% if form.confirm_password.errors %}
+                        {{form.confirm_password(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                            {{form.confirm_password(class="form-control-label")}}
+                        {% endif %}                    
+                    </div>
+                  
+                </fieldset>
+                <div class="form-group">
+                    {{form.submit(class="btn btn-outline-info")}}
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+
+
+
+{% block extra %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <section id="extra" class="container">
+    
+                {% for category,message in messages %}
+                <div class="alert alert-{{ category}}">
+                  {{ message }}
+                </div>
+                {% endfor %} 
+ 
+  </section>
+  {% endif %}
+  {% endwith %} 
+{% endblock extra %}
